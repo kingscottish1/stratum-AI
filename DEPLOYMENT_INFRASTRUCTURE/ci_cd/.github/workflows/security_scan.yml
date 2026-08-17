@@ -1,0 +1,31 @@
+name: Security Scan
+
+on:
+  push:
+  schedule:
+    - cron: "0 3 * * 1"  # weekly
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Secret scanning (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Dependency audit
+        run: |
+          pip install pip-audit
+          pip-audit -r CORE_AGENT_INFRASTRUCTURE/frameworks/langchain_setup/requirements.txt
+
+      - name: Docker image scan (trivy)
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          image-ref: ghcr.io/${{ github.repository }}/agent-core:latest
+          format: table
+          exit-code: "1"
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH

@@ -1,0 +1,43 @@
+name: appointment_reminders
+version: 1.0.0
+vertical: medical_dental_clinics
+description: >
+  Automated reminder cadence: 48h SMS+email, 24h SMS, 2h nudge if
+  unconfirmed. Drives down no-shows.
+
+trigger:
+  events: [scheduled_cron]  # runs hourly
+
+steps:
+  - id: scan_appointments
+    agent: patient_communication_agent
+    action: scan_next_48h
+    output: upcoming_appointments
+
+  - id: send_48h_reminder
+    agent: patient_communication_agent
+    action: reminder_48h
+    for_each: "{upcoming_appointments where delta == 48h}"
+
+  - id: send_24h_reminder
+    agent: patient_communication_agent
+    action: reminder_24h
+    for_each: "{upcoming_appointments where delta == 24h}"
+
+  - id: nudge_unconfirmed
+    agent: patient_communication_agent
+    action: nudge_2h
+    for_each: "{unconfirmed where delta <= 2h}"
+
+success_criteria:
+  - >95% of appointments get >=1 reminder
+  - no-show rate <= 8% (baseline 20-25% typical for clinics)
+
+fallback:
+  - SMS delivery failure -> try email, then voice call (twilio)
+  - patient replies RESCHEDULE -> hand to appointment_agent
+
+metrics:
+  - no_show_rate
+  - reminder_delivery_rate
+  - same_day_cancellations

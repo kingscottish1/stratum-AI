@@ -1,0 +1,47 @@
+name: insurance_check
+version: 1.0.0
+vertical: medical_dental_clinics
+description: >
+  Collect insurance details conversationally, run eligibility check via
+  clearinghouse, and confirm coverage before the appointment.
+
+trigger:
+  events: [insurance_question, pre_visit_check]
+
+steps:
+  - id: collect_fields
+    agent: insurance_intake_agent
+    action: collect
+    fields: [carrier, member_id, plan_name, dob]
+    per_field_prompt: from_templates/prompt_insurance_questions.txt
+
+  - id: verify_eligibility
+    agent: insurance_intake_agent
+    action: verify
+    api: insurance_verification_api
+    output: coverage
+
+  - id: inform_patient
+    agent: patient_communication_agent
+    action: coverage_notice
+    input:
+      coverage: "{coverage}"
+
+  - id: store_in_pms
+    agent: clinic_orchestrator
+    action: save_insurance
+    input:
+      patient_id: "{patient_id}"
+      coverage: "{coverage}"
+
+success_criteria:
+  - eligibility confirmed pre-visit for >90% of booked appointments
+  - patient informed of copay/deductible before visit
+
+fallback:
+  - verification failure -> queue manual check, tell patient "we'll confirm shortly"
+  - ineligible plan -> offer self-pay pricing sheet + payment plan info
+
+metrics:
+  - verification_success_rate
+  - coverage_confirmed_before_visit_pct

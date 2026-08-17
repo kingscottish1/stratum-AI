@@ -1,0 +1,42 @@
+# Client instance configuration — TEMPLATE
+# Copy this folder per new client, then fill everything in.
+
+client:
+  id: "client_XXX"                 # unique id used in metrics/billing
+  name: "Client Name"
+  vertical: "medical_dental_clinics"  # medical_dental_clinics | real_estate_brokerages | logistics_freight
+  environment: "production"        # development | staging | production
+  timezone: "America/New_York"
+  go_live_date: null
+
+integrations:
+  calendar: { provider: "google", calendar_id: "" }
+  crm: { provider: "hubspot", enabled: false }
+  pms: { provider: "dentrix", enabled: false }       # clinic vertical
+  mls: { provider: "resowebapi", enabled: false }    # real estate vertical
+  accounting: { provider: "quickbooks", enabled: false }  # logistics vertical
+  channels:
+    sms: { enabled: true, from_number: "" }
+    whatsapp: { enabled: false }
+    email: { enabled: true }
+    voice: { enabled: false }
+
+agents:
+  enabled: [appointment, insurance_intake, follow_up, patient_communication]
+  auto_book: true                  # false = confirm-first mode
+  auto_hold_invoices: true         # logistics: hold disputed invoices automatically
+  auto_dispute_limit_usd: 500      # logistics: cap on auto-submitted disputes
+
+workflow_tuning:
+  reminder_hours: [48, 24]
+  no_show_window_hours: 2
+  scan_gap_threshold_hours: 24
+  pod_window_hours: 48
+  late_tolerance_hours: 4
+  hot_lead_threshold: 70
+
+branding:
+  clinic_name: ""
+  brokerage_name: ""
+  tone: "warm_professional"
+  signature: ""

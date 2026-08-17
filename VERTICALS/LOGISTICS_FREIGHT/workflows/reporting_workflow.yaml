@@ -1,0 +1,56 @@
+name: reporting
+version: 1.0.0
+vertical: logistics_freight
+description: >
+  Scheduled reports assembled automatically and delivered to the right
+  stakeholders.
+
+trigger:
+  events: [scheduled]
+
+reports:
+  weekly_carrier_scorecard:
+    cadence: weekly_monday_0700
+    recipients: [ops_manager, procurement]
+    format: pdf_email + dashboard
+  monthly_spend:
+    cadence: monthly_1st_0700
+    recipients: [cfo, procurement]
+    format: xlsx + pdf
+  exception_dashboard:
+    cadence: daily_0630
+    recipients: [ops_manager]
+    format: dashboard + slack
+  invoice_cycle:
+    cadence: monthly_1st_0800
+    recipients: [ap_manager, cfo]
+    format: xlsx
+
+steps:
+  - id: build_report
+    agent: reporting_agent
+    action: build
+    input: { report_type: "{report}", period: "{period}" }
+
+  - id: render
+    agent: reporting_agent
+    action: render
+    template: from_templates/report_template.html
+    output: artifact
+
+  - id: deliver
+    agent: logistics_orchestrator
+    action: deliver
+    channels: [email, slack, dashboard]
+
+success_criteria:
+  - reports delivered on schedule, 100% uptime of schedule
+  - < 5 min build time per report
+
+fallback:
+  - data source unavailable -> report with "stale data" watermark, retry in 1h
+  - delivery failure -> retry + alert on-call
+
+metrics:
+  - report_delivery_success_rate
+  - report_build_time

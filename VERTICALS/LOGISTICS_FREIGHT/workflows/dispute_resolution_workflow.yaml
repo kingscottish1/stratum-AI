@@ -1,0 +1,59 @@
+name: dispute_resolution
+version: 1.0.0
+vertical: logistics_freight
+description: >
+  End-to-end dispute and claim management: evidence gathering, package
+  assembly, submission, tracking, and recovery reporting.
+
+trigger:
+  events: [discrepancy_flagged, customer_claim, osd_report]
+
+steps:
+  - id: gather_evidence
+    agent: exception_resolver_agent
+    action: evidence
+    input: { exception: "{exception}" }
+    sources: [rate_con, pod, bol, tracking, contract]
+    output: evidence_pack
+
+  - id: draft_dispute
+    agent: exception_resolver_agent
+    action: draft
+    input: { evidence: "{evidence_pack}", contract: "{contract}" }
+    output: dispute_package
+
+  - id: review_threshold
+    agent: logistics_orchestrator
+    action: threshold_check
+    input: { dispute: "{dispute_package}" }
+
+  - id: submit
+    agent: exception_resolver_agent
+    action: submit
+    when: "{dispute.amount <= auto_limit}"
+    channel: [carrier_portal, email]
+
+  - id: escalate
+    agent: logistics_orchestrator
+    action: escalate
+    when: "{dispute.amount > auto_limit}"
+    to: ap_manager
+
+  - id: track_recovery
+    agent: reporting_agent
+    action: recovery_tracker
+    output: recovery_report
+
+success_criteria:
+  - disputes submitted < 24h of detection
+  - recovery rate tracked weekly; report to CFO monthly
+  - auto-limit configurable per client
+
+fallback:
+  - carrier portal down -> email submission with attachment pack
+  - dispute rejected by carrier -> auto-draft appeal with new evidence
+
+metrics:
+  - dispute_submission_time_hours
+  - recovery_rate_pct
+  - recovery_$ per month

@@ -1,0 +1,18 @@
+{
+  "client_id": "client_002",
+  "month": "2026-07",
+  "uptime_pct": 99.9,
+  "messages_handled": 1740,
+  "avg_response_seconds": 11.0,
+  "automation_rate_pct": 91.0,
+  "human_handoffs": 45,
+  "error_rate_pct": 0.3,
+  "vertical_kpis": {
+    "leads_scored": 486,
+    "hot_leads_alerted_under_5min_pct": 98.0,
+    "showings_booked_by_ai": 214,
+    "showing_no_show_pct": 8.5,
+    "agent_hours_saved_est": 52
+  },
+  "notes": "214 showings booked by AI in July; pipeline value tracked at $1.9M est commission."
+}

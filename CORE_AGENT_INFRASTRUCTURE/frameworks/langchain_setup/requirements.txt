@@ -1,0 +1,15 @@
+# LangChain runtime
+langchain>=0.3.0
+langchain-openai>=0.2.0
+langchain-community>=0.3.0
+langchainhub>=0.1.20
+
+# Memory / vector store
+redis>=5.0.0
+faiss-cpu>=1.8.0
+
+# Core
+pydantic>=2.7.0
+pydantic-settings>=2.3.0
+python-dotenv>=1.0.1
+tiktoken>=0.7.0

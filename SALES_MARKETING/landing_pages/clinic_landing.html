@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stratum Care · Medical & Dental AI Automation — Your front desk never misses another call — <span>or booking</span></title>
+<style>
+  :root{--brand:#0f766e;--brand-dark:#115e59;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--line:#e2e8f0;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 6%;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;}
+  .nav img{height:36px;}
+  .nav a{color:var(--ink);text-decoration:none;margin-left:28px;font-size:14px;font-weight:600;}
+  .nav a:hover{color:var(--brand);}
+  .cta{display:inline-block;background:var(--brand);color:#fff!important;padding:12px 26px;border-radius:8px;font-weight:700;text-decoration:none;font-size:15px;}
+  .cta:hover{background:var(--brand-dark);}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:72px 6%;background:linear-gradient(180deg,#f0fdfa 0%,#fff 100%);}
+  .hero h1{font-size:44px;line-height:1.15;margin-bottom:18px;}
+  .hero h1 span{color:var(--brand);}
+  .hero p{font-size:18px;color:var(--muted);margin-bottom:28px;max-width:520px;}
+  .hero img{width:100%;border-radius:16px;box-shadow:0 20px 60px rgba(15,118,110,.18);}
+  .stats{display:flex;gap:40px;flex-wrap:wrap;padding:36px 6%;background:var(--bg);border-top:1px solid var(--line);}
+  .stat b{font-size:30px;color:var(--brand);display:block;}
+  .stat span{font-size:13px;color:var(--muted);}
+  section{padding:64px 6%;}
+  .kicker{color:var(--brand);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:12px;}
+  h2{font-size:32px;margin:8px 0 16px;}
+  .sub{color:var(--muted);max-width:640px;margin-bottom:32px;}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .card{border:1px solid var(--line);border-radius:12px;padding:24px;background:#fff;}
+  .card h3{font-size:17px;margin-bottom:8px;}
+  .card p{font-size:14px;color:var(--muted);}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .step{text-align:center;padding:20px;}
+  .step .n{width:40px;height:40px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;}
+  .roi{background:var(--brand);color:#fff;border-radius:16px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;}
+  .roi h2{color:#fff;}
+  .roi ul{list-style:none;}
+  .roi li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.2);font-size:15px;}
+  .roi li:last-child{border:none;}
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .price-card{border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;background:#fff;}
+  .price-card.featured{border:2px solid var(--brand);box-shadow:0 12px 40px rgba(15,118,110,.15);}
+  .price-card .amt{font-size:34px;font-weight:800;color:var(--brand);margin:10px 0;}
+  .price-card ul{list-style:none;text-align:left;font-size:14px;color:var(--muted);margin:16px 0 20px;}
+  .price-card li{padding:6px 0;border-bottom:1px dashed var(--line);}
+  form{display:grid;gap:14px;max-width:520px;}
+  input,select{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:8px;font-size:15px;}
+  .faq details{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin-bottom:12px;}
+  .faq summary{font-weight:700;cursor:pointer;}
+  .faq p{color:var(--muted);font-size:14px;margin-top:8px;}
+  footer{background:#0f172a;color:#94a3b8;padding:36px 6%;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+  @media(max-width:900px){.hero,.roi{grid-template-columns:1fr;}.grid,.steps,.price-grid{grid-template-columns:1fr 1fr;}.hero h1{font-size:32px;}}
+  @media(max-width:600px){.grid,.steps,.price-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <img src="assets/logo.png" alt="Stratum AI">
+  <div><a href="#how">How it works</a><a href="#roi">ROI</a><a href="#pricing">Pricing</a><a class="cta" href="#form">Book a demo</a></div>
+</nav>
+
+<header class="hero">
+  <div>
+    <div class="kicker">Stratum Care · Medical & Dental</div>
+    <h1>Your front desk never misses another call — <span>or booking</span></h1>
+    <p>An AI front desk for clinics and dental practices: answers every call and text in seconds, books appointments 24/7, collects insurance before the visit, and cuts no-shows by up to 60%.</p>
+    <a class="cta" href="#form">See it on your data — free</a>
+  </div>
+  <img src="assets/hero-clinic.jpg" alt="Stratum Care · Medical & Dental">
+</header>
+
+<div class="stats"><div class="stat"><b>30s</b><span>average response time — 24/7</span></div><div class="stat"><b>-60%</b><span>no-show reduction with AI reminders</span></div><div class="stat"><b>38h</b><span>front-desk hours saved monthly</span></div><div class="stat"><b>14 days</b><span>to go-live</span></div></div>
+
+<section id="how">
+  <div class="kicker">What you get</div>
+  <h2>An AI teammate that never sleeps</h2>
+  <p class="sub">Deployed in 2-4 weeks. Works with your existing calendar stack. Every action approved and logged.</p>
+  <div class="grid"><div class="card"><h3>Instant booking</h3><p>Patients book, reschedule and cancel by text or voice — straight into your calendar.</p></div><div class="card"><h3>Insurance intake</h3><p>Carrier, member ID and plan collected conversationally before the visit.</p></div><div class="card"><h3>Smart reminders</h3><p>48h/24h/2h reminder cadence that fills your chairs.</p></div><div class="card"><h3>Missed-call recovery</h3><p>Every after-hours call is answered and converted.</p></div><div class="card"><h3>Follow-up engine</h3><p>No-shows and open treatment plans chased automatically.</p></div><div class="card"><h3>HIPAA-aware</h3><p>Encrypted data, audit logs, BAA signed.</p></div></div>
+</section>
+
+<section style="background:var(--bg)">
+  <div class="kicker">How it works</div>
+  <h2>From sign to live in weeks</h2>
+  <div class="steps"><div class="step"><div class="n">1</div><h3>Connect</h3><p style="font-size:13px;color:var(--muted)">We plug into your calendar, PMS and phone in days.</p></div><div class="step"><div class="n">2</div><h3>Tune</h3><p style="font-size:13px;color:var(--muted)">We replay your real conversations and match your brand voice.</p></div><div class="step"><div class="n">3</div><h3>Shadow</h3><p style="font-size:13px;color:var(--muted)">The AI handles messages; your team approves everything.</p></div><div class="step"><div class="n">4</div><h3>Go live</h3><p style="font-size:13px;color:var(--muted)">Auto-booking on. Staff reclaim 30+ hours a month.</p></div></div>
+</section>
+
+<section id="roi">
+  <div class="roi">
+    <div>
+      <div class="kicker" style="color:#99f6e4">ROI</div>
+      <h2>What our stratum care · medical & dental clients see</h2>
+      <p style="opacity:.85;font-size:15px;margin-bottom:14px">Measured on real client data, reported monthly.</p>
+    </div>
+    <ul><li><strong>21% → 9%</strong> — no-show rate in 60 days</li><li><strong>312</strong> — appointments booked by AI in month one</li><li><strong>87%</strong> — of patient messages handled with zero human touch</li></ul>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="kicker">Pricing</div>
+  <h2>Simple, outcome-priced</h2>
+  <p class="sub">One-time implementation + flat monthly platform fee. No per-message surprises.</p>
+  <div class="price-grid"><div class="price-card">
+            <h3>Starter</h3><div class="amt">$3.5k + $750/mo</div>
+            <ul><li>Booking + reminders</li><li>SMS & webchat</li><li>1 location</li><li>Weekly metrics</li></ul>
+            <a class="cta" href="#form">Start</a></div><div class="price-card featured">
+            <h3>Growth</h3><div class="amt">$5k + $1,300/mo</div>
+            <ul><li>Everything in Starter</li><li>Insurance intake</li><li>Voice AI receptionist</li><li>Up to 3 locations</li><li>Slack handoffs</li></ul>
+            <a class="cta" href="#form">Most popular</a></div><div class="price-card">
+            <h3>Multi-site</h3><div class="amt">Custom</div>
+            <ul><li>Everything in Growth</li><li>Unlimited locations</li><li>Recall campaigns</li><li>Dedicated success manager</li></ul>
+            <a class="cta" href="#form">Talk to us</a></div></div>
+</section>
+
+<section class="faq">
+  <div class="kicker">FAQ</div>
+  <h2>Common questions</h2>
+  <details><summary>Is it HIPAA compliant?</summary><p>Yes — encrypted storage, access logging, signed BAAs, US/EU data residency options.</p></details><details><summary>Will it replace my front desk?</summary><p>No. It absorbs the repetitive 80% so your team handles the human 20%.</p></details><details><summary>What if it books something wrong?</summary><p>Rare (<1% in production), fully logged, and one-click undo is available. You can also run confirm-first mode.</p></details><details><summary>How long to go live?</summary><p>7-14 days. Most of that is tuning, not integration.</p></details>
+</section>
+
+<section id="form" style="background:var(--bg)">
+  <div class="kicker">Get started</div>
+  <h2>Book a 15-minute demo</h2>
+  <p class="sub">Bring your real phone number — we'll show you what the AI would have done with last week's missed calls.</p>
+  <form action="#" method="post">
+    <input type="text" name="name" placeholder="Your name" required>
+    <input type="email" name="email" placeholder="Work email" required>
+    <input type="tel" name="phone" placeholder="Phone (optional)">
+    <input type="text" name="company" placeholder="Company">
+    <select name="vertical">
+      <option>Stratum Care · Medical & Dental</option>
+      <option>Medical / Dental</option>
+      <option>Real Estate</option>
+      <option>Logistics / Freight</option>
+    </select>
+    <button class="cta" type="submit">Request demo →</button>
+  </form>
+</section>
+
+<footer>
+  <span>© 2026 Stratum AI · Privacy · Terms</span>
+  <span>hello@stratumai.com · +1 (555) 010-0000</span>
+</footer>
+</body>
+</html>

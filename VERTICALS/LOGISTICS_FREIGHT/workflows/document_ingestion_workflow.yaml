@@ -1,0 +1,52 @@
+name: document_ingestion
+version: 1.0.0
+vertical: logistics_freight
+description: >
+  Inbound documents (carrier invoices, PODs, BOLs, rate cons) are parsed,
+  classified, and routed to the right downstream agent — no humans needed.
+
+trigger:
+  channels: [email_attachment, api_upload, fax, edi]
+  events: [document_received]
+
+steps:
+  - id: extract_text
+    agent: document_parser_agent
+    action: extract
+    input: { file: "{document}" }
+    output: text
+
+  - id: classify
+    agent: document_parser_agent
+    action: classify
+    output: document_type
+
+  - id: route
+    agent: logistics_orchestrator
+    action: route
+    branches:
+      carrier_invoice: invoice_matching
+      bill_of_lading: attach_to_shipment
+      proof_of_delivery: attach_to_shipment
+      rate_confirmation: update_rate_table
+      exception_notice: exception_resolution
+      other: manual_queue
+
+  - id: confirm_filing
+    agent: logistics_orchestrator
+    action: log
+    output: filing_reference
+
+success_criteria:
+  - 100% documents parsed (OCR fallback for scans)
+  - classification confidence >= 0.85; else human review queue
+  - filing reference returned within 60s
+
+fallback:
+  - OCR failure -> retry at higher DPI, then manual queue
+  - unknown doc type -> manual queue + notify team via email
+
+metrics:
+  - documents_per_day_handled_pct
+  - classification_accuracy
+  - ingestion_latency_seconds

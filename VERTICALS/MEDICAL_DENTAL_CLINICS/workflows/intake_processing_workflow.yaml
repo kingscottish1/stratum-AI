@@ -1,0 +1,47 @@
+name: intake_processing
+version: 1.0.0
+vertical: medical_dental_clinics
+description: >
+  Collect new-patient intake (demographics + medical history) via
+  conversational Q&A or form, then push into the PMS patient record.
+
+trigger:
+  events: [new_patient_registration, intake_form_submit]
+
+steps:
+  - id: create_patient_stub
+    agent: clinic_orchestrator
+    action: ensure_patient
+    output: patient_id
+
+  - id: collect_demographics
+    agent: insurance_intake_agent
+    action: collect
+    fields: [name, dob, phone, email, address, emergency_contact]
+    channel: "{channel}"
+
+  - id: collect_medical_history
+    agent: insurance_intake_agent
+    action: collect_medical
+    questions: from_templates/intake_questions.yaml
+    output: medical_history
+
+  - id: validate_and_save
+    agent: clinic_orchestrator
+    action: save_intake
+    input:
+      patient_id: "{patient_id}"
+      data: "{collected}"
+
+success_criteria:
+  - patient record complete in PMS
+  - consent captured (adults) / guardian for minors
+  - duplicate check passed (no double records)
+
+fallback:
+  - sensitive/high-risk answers (allergies, medications) always flagged for staff review
+  - if patient prefers paper: email printable intake form and pause conversation
+
+compliance:
+  - HIPAA: data at rest encrypted, access logged
+  - retention per clinic policy

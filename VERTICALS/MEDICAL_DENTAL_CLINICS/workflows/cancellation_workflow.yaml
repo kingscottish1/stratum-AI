@@ -1,0 +1,50 @@
+name: cancellation_handling
+version: 1.0.0
+vertical: medical_dental_clinics
+description: >
+  Handle cancellations gracefully: confirm cancel, free the slot,
+  offer immediate rebooking, notify front desk for waitlist fill.
+
+trigger:
+  events: [cancel_request, no_show_detected]
+
+steps:
+  - id: confirm_cancellation
+    agent: appointment_agent
+    action: cancel
+    input:
+      appointment_id: "{appointment_id}"
+      patient: "{patient}"
+
+  - id: free_slot
+    agent: appointment_agent
+    action: release_calendar_slot
+    input:
+      event_id: "{event_id}"
+
+  - id: offer_rebooking
+    agent: appointment_agent
+    action: offer_slots
+    input:
+      patient: "{patient}"
+    output: slots_offered
+
+  - id: notify_waitlist
+    agent: follow_up_agent
+    action: waitlist_fill
+    input:
+      slot: "{freed_slot}"
+
+success_criteria:
+  - patient gets confirmation of cancellation
+  - slot released within 60s
+  - waitlist notified within 15m when queue enabled
+
+fallback:
+  - late-cancel fee policy applied when within window (configurable)
+  - sensitive patients (in treatment) -> human call instead of SMS
+
+metrics:
+  - cancel_confirmation_rate
+  - rebook_within_7d_rate
+  - slot_reuse_rate

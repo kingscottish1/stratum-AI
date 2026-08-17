@@ -1,0 +1,34 @@
+# Client instance configuration — Remax Denver (sample client)
+client:
+  id: "client_002"
+  name: "Remax Denver"
+  vertical: "real_estate_brokerages"
+  environment: "production"
+  timezone: "America/Denver"
+  go_live_date: "2026-06-20"
+
+integrations:
+  crm: { provider: "follow_up_boss", enabled: true }
+  mls: { provider: "resowebapi", enabled: true }
+  calendar: { provider: "google", calendar_id: "remax-denver@group.calendar.google.com" }
+  channels:
+    sms: { enabled: true, from_number: "+13035550177" }
+    whatsapp: { enabled: true }
+    email: { enabled: true }
+    voice: { enabled: false }
+
+agents:
+  enabled: [lead_qualifier, property_matcher, viewing_scheduler, follow_up, crm_sync]
+  auto_book_viewings: true
+  hot_lead_threshold: 70
+
+workflow_tuning:
+  response_sla_minutes: 5
+  showing_duration_minutes: 45
+  showing_buffer_minutes: 15
+  sequence_enabled: true
+
+branding:
+  brokerage_name: "Remax Denver"
+  tone: "energetic_professional"
+  signature: "— The Remax Denver Team"

@@ -1,0 +1,6 @@
+# SOPS configuration — encrypt client secrets at rest in the repo.
+# Generate a key: age-keygen -o key.txt  →  paste the PUBLIC key below.
+creation_rules:
+  - path_regex: .*secrets\.env$
+    encrypted_regex: "^(.*)$"
+    age: age1REPLACE_WITH_YOUR_AGE_PUBLIC_KEY

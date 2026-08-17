@@ -1,0 +1,53 @@
+name: property_showing
+version: 1.0.0
+vertical: real_estate_brokerages
+description: >
+  From "I want to see it" to a confirmed showing on the agent's calendar,
+  with confirmations to both parties and a pre-showing info pack.
+
+trigger:
+  events: [showing_requested]
+
+steps:
+  - id: match_listing
+    agent: property_matcher_agent
+    action: resolve
+    input: { lead: "{lead}", query: "{message}" }
+    output: listing
+
+  - id: find_slots
+    agent: viewing_scheduler_agent
+    action: agent_slots
+    input:
+      agent: "{assigned_agent}"
+      listing: "{listing}"
+      preferred: "{preferred_time}"
+
+  - id: confirm_with_client
+    agent: viewing_scheduler_agent
+    action: propose
+    output: client_ok
+
+  - id: book
+    agent: viewing_scheduler_agent
+    action: book
+    input: { slot: "{chosen_slot}", listing: "{listing}", lead: "{lead}" }
+
+  - id: send_info_pack
+    agent: property_matcher_agent
+    action: info_pack
+    input: { listing: "{listing}", lead: "{lead}" }
+
+success_criteria:
+  - showing confirmed within 15 min of request (during business hours)
+  - agent calendar updated; no double-bookings
+  - client receives confirmation + address + info pack
+
+fallback:
+  - agent no slots -> offer next-best agent or waitlist
+  - client doesn't respond in 30 min -> SMS nudge; after 2h, flag to agent
+
+metrics:
+  - showing_confirmation_time
+  - no_show_to_showing_rate
+  - double_booking_rate (target 0)

@@ -1,0 +1,35 @@
+# GitLab CI variant (for clients or agencies on self-hosted GitLab).
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+
+test:
+  stage: test
+  image: python:3.11
+  script:
+    - pip install -r CORE_AGENT_INFRASTRUCTURE/frameworks/langchain_setup/requirements.txt ruff pytest
+    - ruff check CORE_AGENT_INFRASTRUCTURE VERTICALS
+    - python -m compileall -q CORE_AGENT_INFRASTRUCTURE VERTICALS
+    - pytest tests/ -q
+
+build:
+  stage: build
+  image: docker:27
+  services:
+    - docker:27-dind
+  script:
+    - docker build -f DEPLOYMENT_INFRASTRUCTURE/docker/Dockerfile.agent-core -t $CI_REGISTRY_IMAGE/agent-core:$IMAGE_TAG .
+    - docker push $CI_REGISTRY_IMAGE/agent-core:$IMAGE_TAG
+
+deploy_staging:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  script:
+    - kubectl set image deployment/agent-core agent-core=$CI_REGISTRY_IMAGE/agent-core:$IMAGE_TAG -n stratum
+    - kubectl rollout status deployment/agent-core -n stratum --timeout=5m
+  only:
+    - develop

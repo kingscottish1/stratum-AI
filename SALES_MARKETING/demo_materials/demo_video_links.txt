@@ -1,0 +1,18 @@
+# Demo videos
+(Replace with your hosted video links)
+
+Medical/Dental:
+- 2-min overview: https://youtu.be/REPLACE_CLINIC_OVERVIEW
+- Full booking walkthrough: https://youtu.be/REPLACE_CLINIC_BOOKING
+
+Real Estate:
+- 2-min overview: https://youtu.be/REPLACE_RE_OVERVIEW
+- Lead qualification + showing booking: https://youtu.be/REPLACE_RE_LEADS
+
+Logistics:
+- 2-min overview: https://youtu.be/REPLACE_LOGISTICS_OVERVIEW
+- Invoice matcher walkthrough: https://youtu.be/REPLACE_LOGISTICS_MATCHER
+
+Internal:
+- Client dashboard tour: https://youtu.be/REPLACE_DASHBOARD
+- Onboarding walkthrough for new hires: https://youtu.be/REPLACE_ONBOARDING

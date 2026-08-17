@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+**/secrets.env
+**/secrets.env.enc
+**/*.pem
+**/*.key
+**/*.crt
+**/*.p12
+
+# Databases (never commit)
+*.db
+*.sqlite
+test_stratum.db
+
+# Infrastructure
+terraform/.terraform/
+terraform/*.tfstate*
+*.tfvars
+
+# Office artifacts (generated; keep templates)
+*.xlsx~  *.docx~  *.pptx~
+
+# Portal runtime state (keep only the seed)
+CLIENT_PORTAL/data/*.json
+!CLIENT_PORTAL/data/seed.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# Node (landing pages if built with tooling later)
+node_modules/
+dist/

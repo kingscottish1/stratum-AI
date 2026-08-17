@@ -1,0 +1,34 @@
+# Client instance configuration — Acme Dental (sample client)
+client:
+  id: "client_001"
+  name: "Acme Dental"
+  vertical: "medical_dental_clinics"
+  environment: "production"
+  timezone: "America/Denver"
+  go_live_date: "2026-05-15"
+
+integrations:
+  calendar: { provider: "google", calendar_id: "acme.dental@group.calendar.google.com" }
+  crm: { provider: "hubspot", enabled: true }
+  pms: { provider: "eaglesoft", enabled: true }
+  channels:
+    sms: { enabled: true, from_number: "+17205550123" }
+    whatsapp: { enabled: false }
+    email: { enabled: true }
+    voice: { enabled: true }
+
+agents:
+  enabled: [appointment, insurance_intake, follow_up, patient_communication]
+  auto_book: true
+  auto_hold_invoices: false
+  auto_dispute_limit_usd: 0
+
+workflow_tuning:
+  reminder_hours: [48, 24]
+  no_show_window_hours: 2
+  late_cancel_fee_window_hours: 24
+
+branding:
+  clinic_name: "Acme Dental"
+  tone: "warm_professional"
+  signature: "— Acme Dental Team"

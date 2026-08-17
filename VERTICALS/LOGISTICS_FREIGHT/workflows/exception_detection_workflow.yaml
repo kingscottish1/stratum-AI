@@ -1,0 +1,51 @@
+name: exception_detection
+version: 1.0.0
+vertical: logistics_freight
+description: >
+  Hourly sweep of active shipments for exceptions. Detect before the
+  customer does.
+
+trigger:
+  events: [scheduled_hourly, status_update, carrier_webhook]
+
+steps:
+  - id: collect_active_shipments
+    agent: logistics_orchestrator
+    action: active_shipments
+    output: shipments
+
+  - id: detect
+    agent: exception_detector_agent
+    action: scan
+    for_each: "{shipments}"
+    output: exceptions
+
+  - id: severity_triage
+    agent: logistics_orchestrator
+    action: triage
+    input: { exceptions: "{exceptions}" }
+
+  - id: resolve_auto
+    agent: exception_resolver_agent
+    action: resolve
+    for_each: "{exceptions where severity == 'low' or 'medium'}"
+
+  - id: alert_human
+    agent: logistics_orchestrator
+    action: alert
+    for_each: "{exceptions where severity == 'high'}"
+    channel: [email, slack]
+
+success_criteria:
+  - detection latency < 30 min from event
+  - 100% of high-severity exceptions human-visible in < 5 min
+  - auto-resolution rate >= 60%
+
+fallback:
+  - TMS down -> poll queue; mark data stale in alerts
+  - LLM unavailable -> rule-based detection only (still works)
+
+metrics:
+  - detection_latency_min
+  - auto_resolution_rate
+  - proactive_vs_reported_ratio

@@ -1,0 +1,17 @@
+CARRIER INVOICE — FedEx Freight
+Invoice number: INV-88213
+Invoice date: 07/28/2026
+Shipment reference: SH-1001
+Bill of lading: BOL-4401
+
+Shipper: Acme Parts Co., Denver, CO
+Consignee: BuildCo LLC, Salt Lake City, UT
+
+Freight charges:          $1,150.00
+Fuel surcharge:              $95.00
+Accessorial — liftgate:      $45.00  (authorized)
+Residential delivery:        $10.00  (NOT AUTHORIZED on BOL)
+
+Total due:                $1,250.00
+Payment terms: Net 30
+Weight: 8,420 lbs  Pieces: 14

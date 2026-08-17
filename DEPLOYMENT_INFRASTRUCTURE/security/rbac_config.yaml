@@ -1,0 +1,33 @@
+# RBAC: least-privilege service accounts for the stratum platform.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: agent-runtime
+  namespace: stratum
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: agent-runtime-role
+  namespace: stratum
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps", "secrets"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: agent-runtime-binding
+  namespace: stratum
+subjects:
+  - kind: ServiceAccount
+    name: agent-runtime
+    namespace: stratum
+roleRef:
+  kind: Role
+  name: agent-runtime-role
+  apiGroup: rbac.authorization.k8s.io

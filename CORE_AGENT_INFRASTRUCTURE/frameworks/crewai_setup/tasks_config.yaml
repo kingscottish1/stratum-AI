@@ -1,0 +1,39 @@
+# Task definitions referenced by agency crews.
+
+tasks:
+  - name: triage_request
+    description: >
+      Read the incoming request, identify the vertical, the channel and
+      the high-level goal. Output a structured triage JSON.
+    expected_output: >
+      JSON with keys: vertical, channel, goal, urgency (low|medium|high),
+      required_specialists (list).
+    agent: orchestrator
+
+  - name: fetch_client_context
+    description: >
+      Pull the relevant customer/client record and recent conversation
+      history from the client's CRM or practice management system.
+    expected_output: "Normalized JSON record with recent activity."
+    agent: data_specialist
+
+  - name: draft_response
+    description: >
+      Using the triage JSON and client context, draft the customer-facing
+      response for the target channel.
+    expected_output: "Final message text, within channel length limits."
+    agent: communicator
+
+  - name: qa_review
+    description: >
+      Review the drafted response for factual accuracy, tone and
+      compliance risk. Return APPROVED or a list of required changes.
+    expected_output: "QA verdict with specific change list when not approved."
+    agent: quality_analyst
+
+  - name: deliver_and_log
+    description: >
+      Send the approved response via the channel adapter and log the
+      outcome to the conversation store and client metrics.
+    expected_output: "Delivery status + conversation log entry."
+    agent: orchestrator

@@ -1,0 +1,6 @@
+Hi {{first_name}}! Friendly reminder: {{service}} at {{clinic_name}} on {{date_time}}.
+
+📍 {{address}}
+📞 {{phone}}
+
+Reply CONFIRM to confirm, RESCHEDULE to change, or CANCEL. No reply = we'll see you there! 😊

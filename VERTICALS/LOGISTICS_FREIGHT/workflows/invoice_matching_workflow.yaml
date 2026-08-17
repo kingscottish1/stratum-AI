@@ -1,0 +1,48 @@
+name: invoice_matching
+version: 1.0.0
+vertical: logistics_freight
+description: >
+  Match every carrier invoice against the ledger and contracted rates
+  before it reaches AP. Pay clean, hold disputed.
+
+trigger:
+  events: [carrier_invoice_ingested]
+
+steps:
+  - id: match_shipment
+    agent: invoice_matcher_agent
+    action: match
+    input: { invoice: "{invoice}" }
+    output: match_result
+
+  - id: handle_match
+    agent: invoice_matcher_agent
+    action: approve
+    when: "{match_result.status == 'match'}"
+    output: payment_ready
+
+  - id: handle_discrepancy
+    agent: exception_resolver_agent
+    action: dispute
+    when: "{match_result.status == 'discrepancy'}"
+    input: { exception: "{match_result}", context: "{shipment}" }
+
+  - id: handle_unmatched
+    agent: exception_resolver_agent
+    action: investigate
+    when: "{match_result.status == 'unmatched'}"
+    output: investigation_ticket
+
+success_criteria:
+  - clean invoices paid on time (no late fees)
+  - discrepancies caught before payment (>99%)
+  - dispute packages evidence-backed
+
+fallback:
+  - rate table missing for lane -> hold + request rate confirmation from carrier
+  - amount variance > 20% -> senior AP review (no auto-hold without human)
+
+metrics:
+  - match_rate
+  - avg_hold_time_hours
+  - overpayment_caught_$

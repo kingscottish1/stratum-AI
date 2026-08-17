@@ -1,0 +1,11 @@
+✅ Viewing confirmed!
+
+🏠 {{address}}
+📅 {{date_time}}
+🕐 45 minutes
+📍 [Map link: {{map_url}}]
+
+What to bring: ID + pre-approval (if you have it).
+
+Reply RESCHEDULE to change, or QUESTIONS for anything else.
+— {{agent_name}}, {{brokerage_name}}

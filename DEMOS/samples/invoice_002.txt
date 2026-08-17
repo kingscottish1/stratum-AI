@@ -1,0 +1,9 @@
+CARRIER INVOICE — UPS Freight
+Invoice number: INV-90117
+Invoice date: 07/30/2026
+Shipment reference: SH-1002
+Freight charges: $905.00
+Fuel surcharge: $70.00
+Total due: $975.00
+Weight: 6,100 lbs  Pieces: 9
+Payment terms: Net 30

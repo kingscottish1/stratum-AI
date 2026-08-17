@@ -1,0 +1,48 @@
+name: lead_qualification
+version: 1.0.0
+vertical: real_estate_brokerages
+description: >
+  Turn a lead record + first conversation into a scored profile
+  (0-100) with recommended next action.
+
+trigger:
+  events: [lead_qualified_needed, weekly_requalification]
+
+steps:
+  - id: build_profile
+    agent: lead_qualifier_agent
+    action: profile
+    input:
+      message: "{conversation_text}"
+      lead: "{lead_record}"
+    output: profile
+
+  - id: score
+    agent: lead_qualifier_agent
+    action: score
+    input: { profile: "{profile}", lead: "{lead_record}" }
+    output: score
+
+  - id: route
+    agent: brokerage_orchestrator
+    action: route
+    input: { score: "{score}" }
+
+  - id: persist
+    agent: crm_sync_agent
+    action: update
+    input:
+      contact_id: "{lead_record.id}"
+      fields: { lead_score: "{score.total}", status: "{score.tier}" }
+
+success_criteria:
+  - 100% of new leads scored < 1 min
+  - score accuracy reviewed weekly vs agent feedback
+
+fallback:
+  - no LLM -> heuristic scoring from keywords + form fields
+  - score tied between tiers -> route to human review
+
+metrics:
+  - score_card_accuracy
+  - hot_lead_conversion_rate

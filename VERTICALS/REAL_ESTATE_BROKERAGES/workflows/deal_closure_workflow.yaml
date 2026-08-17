@@ -1,0 +1,57 @@
+name: deal_closure
+version: 1.0.0
+vertical: real_estate_brokerages
+description: >
+  Support the closing phase: offer paperwork, escrow milestones,
+  and timeline reminders — so nothing slips between offer and keys.
+
+trigger:
+  events: [offer_accepted, milestone_due]
+
+steps:
+  - id: create_deal_record
+    agent: crm_sync_agent
+    action: create_deal
+    input:
+      contact_id: "{buyer.id}"
+      title: "{property.address} - {buyer.name}"
+      stage: "Offer Accepted"
+      value: "{offer.amount}"
+
+  - id: prefill_forms
+    agent: zipform_connector
+    action: prefill
+    input:
+      transaction: "{transaction}"
+      form_type: "{state}-specific offer form"
+
+  - id: send_for_signature
+    agent: zipform_connector
+    action: sign
+    input:
+      parties: ["{buyer}", "{seller_agent}"]
+
+  - id: milestone_tracker
+    agent: brokerage_orchestrator
+    action: schedule_milestones
+    input:
+      dates: [inspection, appraisal, financing, closing]
+
+  - id: milestone_reminders
+    agent: follow_up_agent
+    action: reminders
+    for_each: "{milestone within 48h}"
+
+success_criteria:
+  - forms prefilled with >95% accuracy (no re-typing)
+  - no missed milestone deadlines (100% reminder coverage)
+  - status in CRM always current
+
+fallback:
+  - e-sign failure -> send PDF for wet signature + notify agent
+  - milestone missed -> alert managing broker
+
+metrics:
+  - days_offer_to_closing
+  - form_error_rate
+  - milestone_miss_rate

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>New Patient Intake — {{clinic_name}}</title>
+  <style>
+    body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; background: #f4f7fb; margin: 0; padding: 24px; color: #1f2937; }
+    .card { background: #ffffff; border-radius: 12px; max-width: 560px; margin: 0 auto; padding: 32px; border: 1px solid #e5e7eb; }
+    h1 { font-size: 22px; color: #0f766e; margin-top: 0; }
+    .btn { display: inline-block; background: #0f766e; color: #ffffff !important; text-decoration: none; padding: 12px 22px; border-radius: 8px; font-weight: 600; }
+    .note { color: #6b7280; font-size: 13px; margin-top: 24px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    td, th { border-bottom: 1px solid #f1f5f9; padding: 8px 4px; text-align: left; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Welcome to {{clinic_name}}! 🦷</h1>
+    <p>Hi {{first_name}}, we're looking forward to seeing you on <strong>{{date_time}}</strong> for your {{service}}.</p>
+    <p>Please complete your new-patient intake before your visit (takes ~3 minutes):</p>
+    <p style="text-align:center; margin: 24px 0;">
+      <a class="btn" href="{{intake_link}}">Complete intake form</a>
+    </p>
+    <table>
+      <tr><th>Appointment</th><td>{{service}}</td></tr>
+      <tr><th>When</th><td>{{date_time}}</td></tr>
+      <tr><th>Where</th><td>{{address}}</td></tr>
+      <tr><th>Questions?</th><td>{{phone}}</td></tr>
+    </table>
+    <p class="note">This email was sent automatically. If you can't make it, reply RESCHEDULE and we'll find a new time.</p>
+  </div>
+</body>
+</html>

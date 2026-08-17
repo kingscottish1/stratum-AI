@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Exception Alert</title>
+<style>
+  body { font-family: Segoe UI, Arial, sans-serif; background: #f4f7fb; padding: 24px; color: #1f2937; }
+  .wrap { max-width: 600px; margin: 0 auto; }
+  .alert { background: #fff; border-left: 4px solid #dc2626; border-radius: 8px; padding: 18px 20px; margin: 12px 0; }
+  .info { background: #fff; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 14px 20px; margin: 12px 0; }
+  h2 { margin-top: 0; } .muted { color: #6b7280; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+  td, th { border-bottom: 1px solid #f1f5f9; padding: 8px 4px; text-align: left; font-size: 14px; }
+</style></head>
+<body>
+<div class="wrap">
+  <h2>⚠️ {{severity_label}} — {{exception_type}}</h2>
+  <div class="alert">
+    <table>
+      <tr><th>Shipment</th><td>{{shipment_reference}}</td></tr>
+      <tr><th>Carrier</th><td>{{carrier}}</td></tr>
+      <tr><th>Reason</th><td>{{reason}}</td></tr>
+      <tr><th>Detected</th><td>{{detected_at}}</td></tr>
+      <tr><th>Customer impact</th><td>{{customer_impact}}</td></tr>
+    </table>
+  </div>
+  <div class="info">
+    <strong>Next step (AI):</strong> {{auto_action}}<br>
+    <span class="muted">If this needs a human, reply to this email or open the dashboard.</span>
+  </div>
+</div>
+</body>
+</html>

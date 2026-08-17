@@ -1,0 +1,18 @@
+{
+  "client_id": "client_001",
+  "month": "2026-07",
+  "uptime_pct": 99.8,
+  "messages_handled": 2143,
+  "avg_response_seconds": 9.0,
+  "automation_rate_pct": 87.0,
+  "human_handoffs": 63,
+  "error_rate_pct": 0.4,
+  "vertical_kpis": {
+    "bookings_by_ai": 312,
+    "no_show_rate_pct": 9.0,
+    "reminder_delivery_rate_pct": 99.2,
+    "insurance_verified_before_visit_pct": 91.0,
+    "front_desk_hours_saved_est": 38
+  },
+  "notes": "No-show down from 21% baseline. Voice AI added June."
+}

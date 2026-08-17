@@ -1,0 +1,8 @@
+BILL OF LADING — BOL-4401
+Shipment reference: SH-1001
+Carrier: FedEx Freight
+Origin: Denver, CO   Destination: Salt Lake City, UT
+Equipment: 53ft dry van
+Commodity: Industrial parts, 14 pieces, 8,420 lbs
+Authorized accessorials: LIFTGATE
+Special instructions: Call before delivery.

@@ -1,0 +1,63 @@
+name: appointment_booking
+version: 1.0.0
+vertical: medical_dental_clinics
+description: >
+  Full patient booking loop: intent -> details -> availability -> book ->
+  confirm. Runs on SMS, WhatsApp and webchat.
+
+trigger:
+  channels: [sms, whatsapp, webchat]
+  events: [inbound_message, web_form_submit]
+
+steps:
+  - id: classify_intent
+    agent: clinic_orchestrator
+    action: classify
+    output: intent
+
+  - id: extract_details
+    agent: appointment_agent
+    action: extract
+    input:
+      message: "{message}"
+      patient: "{patient}"
+    output: appointment_details
+    on_failure: ask_clarifying_questions
+
+  - id: find_slots
+    agent: appointment_agent
+    action: find_slots
+    input:
+      details: "{appointment_details}"
+    output: available_slots
+    on_empty: offer_alternatives
+
+  - id: book_slot
+    agent: appointment_agent
+    action: book
+    input:
+      slot: "{available_slots[0]}"
+      patient: "{patient}"
+    output: booking_confirmation
+
+  - id: send_confirmation
+    agent: patient_communication_agent
+    action: confirmation
+    input:
+      appointment: "{booking_confirmation}"
+      patient: "{patient}"
+
+success_criteria:
+  - event created in calendar/PMS
+  - patient receives confirmation on original channel
+  - PMS appointment record synced
+
+fallback:
+  - if no slot found after 2 attempts: collect phone + name, create ticket
+  - if PMS sync fails: keep calendar booking, flag ticket, retry sync in 5m
+  - escalate to human front desk via slack when patient asks for 3+ times
+
+metrics:
+  - booking_completion_rate
+  - avg_seconds_to_book
+  - no_show_rate_delta

@@ -1,0 +1,12 @@
+{
+  "client_id": "client_XXX",
+  "month": "YYYY-MM",
+  "uptime_pct": 0.0,
+  "messages_handled": 0,
+  "avg_response_seconds": 0.0,
+  "automation_rate_pct": 0.0,
+  "human_handoffs": 0,
+  "error_rate_pct": 0.0,
+  "vertical_kpis": {},
+  "notes": "Populated automatically by the reporting job each month."
+}

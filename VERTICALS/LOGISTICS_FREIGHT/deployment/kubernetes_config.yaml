@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logistics-agent
+  namespace: stratum
+  labels:
+    app: logistics-agent
+    vertical: logistics_freight
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: logistics-agent
+  template:
+    metadata:
+      labels:
+        app: logistics-agent
+        vertical: logistics_freight
+    spec:
+      containers:
+        - name: logistics-agent
+          image: ${ECR_REGISTRY}/agent-core:${IMAGE_TAG}
+          env:
+            - name: VERTICAL
+              value: logistics_freight
+          envFrom:
+            - configMapRef: { name: logistics-config }
+            - secretRef: { name: logistics-secrets }
+          resources:
+            requests: { cpu: 300m, memory: 512Mi }
+            limits: { cpu: "2", memory: 2Gi }
+          readinessProbe:
+            httpGet: { path: /healthz, port: 8000 }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logistics-config
+  namespace: stratum
+data:
+  client_id: "CHANGE_ME"
+  tms_provider: "tmw"             # tmw | fourforce | logistic_manager
+  accounting_provider: "quickbooks"  # quickbooks | sageintacct | netsuite
+  scan_gap_threshold_hours: "24"
+  pod_window_hours: "48"
+  late_tolerance_hours: "4"
+  auto_dispute_limit: "500"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logistics-agent
+  namespace: stratum
+spec:
+  selector:
+    app: logistics-agent
+  ports:
+    - port: 80
+      targetPort: 8000

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>New listings for you</title>
+<style>
+  body { font-family: Segoe UI, Arial, sans-serif; background: #f4f7fb; padding: 24px; color: #1f2937; }
+  .wrap { max-width: 600px; margin: 0 auto; }
+  .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin: 14px 0; }
+  h1 { color: #0f766e; } h3 { margin: 0 0 6px; }
+  .price { font-size: 18px; font-weight: 700; color: #0f766e; }
+  .btn { display: inline-block; background: #0f766e; color: #fff; text-decoration: none;
+         padding: 10px 18px; border-radius: 8px; margin-top: 10px; }
+  .foot { color: #6b7280; font-size: 12px; margin-top: 20px; }
+</style></head>
+<body>
+<div class="wrap">
+  <h1>Hi {{first_name}}, new homes for you 🏡</h1>
+  <p>Hand-picked from the MLS to match: {{criteria}}</p>
+  {{listing_cards}}
+  <p>Like one? Hit reply — we can book a viewing today.</p>
+  <p class="foot">You're getting these because you asked us to watch the market.
+     Unsubscribe anytime by replying STOP.</p>
+</div>
+</body>
+</html>

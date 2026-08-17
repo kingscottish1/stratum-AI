@@ -1,0 +1,25 @@
+Subject: Your carrier invoices are overpaying you (and you don't know it)
+
+Hi [First Name],
+
+Freight companies typically overpay carriers 1-3% on accessorials and
+rate discrepancies — and most disputes are filed weeks after the window
+to recover has passed.
+
+We automate AP and exception ops for freight companies:
+
+  • Every carrier invoice matched against contract + POD before payment
+  • Disputes packaged with evidence and submitted in 24h, not 6 weeks
+  • Exceptions detected before customers notice (scan gaps, late risks)
+  • Reports that used to take days — delivered automatically
+
+Typical first-year recovery: $15k-$40k in disputes plus tens of thousands
+in back-office hours.
+
+Would a 20-minute walkthrough of the matcher work for you?
+
+[Your Name]
+[Your Agency] — [link]
+
+P.S. We'll run 50 of your historical invoices through the matcher free —
+you keep the findings either way.

@@ -1,0 +1,18 @@
+# Per-client logistics stack.
+# Usage:
+#   docker compose -f DEPLOYMENT_INFRASTRUCTURE/docker/docker-compose.master.yml \
+#     -f VERTICALS/LOGISTICS_FREIGHT/deployment/docker-compose.yml up -d
+version: "3.9"
+
+services:
+  api:
+    environment:
+      VERTICAL: logistics_freight
+      CLIENT_ID: "${CLIENT_ID}"
+
+  worker:
+    environment:
+      VERTICAL: logistics_freight
+      CLIENT_ID: "${CLIENT_ID}"
+    deploy:
+      replicas: 3   # heavier: document processing + hourly sweeps

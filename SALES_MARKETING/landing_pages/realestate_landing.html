@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stratum Realty · Real Estate AI Automation — Every lead answered in under 5 minutes — <span>even at 2am</span></title>
+<style>
+  :root{--brand:#0f766e;--brand-dark:#115e59;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--line:#e2e8f0;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 6%;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;}
+  .nav img{height:36px;}
+  .nav a{color:var(--ink);text-decoration:none;margin-left:28px;font-size:14px;font-weight:600;}
+  .nav a:hover{color:var(--brand);}
+  .cta{display:inline-block;background:var(--brand);color:#fff!important;padding:12px 26px;border-radius:8px;font-weight:700;text-decoration:none;font-size:15px;}
+  .cta:hover{background:var(--brand-dark);}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:72px 6%;background:linear-gradient(180deg,#f0fdfa 0%,#fff 100%);}
+  .hero h1{font-size:44px;line-height:1.15;margin-bottom:18px;}
+  .hero h1 span{color:var(--brand);}
+  .hero p{font-size:18px;color:var(--muted);margin-bottom:28px;max-width:520px;}
+  .hero img{width:100%;border-radius:16px;box-shadow:0 20px 60px rgba(15,118,110,.18);}
+  .stats{display:flex;gap:40px;flex-wrap:wrap;padding:36px 6%;background:var(--bg);border-top:1px solid var(--line);}
+  .stat b{font-size:30px;color:var(--brand);display:block;}
+  .stat span{font-size:13px;color:var(--muted);}
+  section{padding:64px 6%;}
+  .kicker{color:var(--brand);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:12px;}
+  h2{font-size:32px;margin:8px 0 16px;}
+  .sub{color:var(--muted);max-width:640px;margin-bottom:32px;}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .card{border:1px solid var(--line);border-radius:12px;padding:24px;background:#fff;}
+  .card h3{font-size:17px;margin-bottom:8px;}
+  .card p{font-size:14px;color:var(--muted);}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .step{text-align:center;padding:20px;}
+  .step .n{width:40px;height:40px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;}
+  .roi{background:var(--brand);color:#fff;border-radius:16px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;}
+  .roi h2{color:#fff;}
+  .roi ul{list-style:none;}
+  .roi li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.2);font-size:15px;}
+  .roi li:last-child{border:none;}
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .price-card{border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;background:#fff;}
+  .price-card.featured{border:2px solid var(--brand);box-shadow:0 12px 40px rgba(15,118,110,.15);}
+  .price-card .amt{font-size:34px;font-weight:800;color:var(--brand);margin:10px 0;}
+  .price-card ul{list-style:none;text-align:left;font-size:14px;color:var(--muted);margin:16px 0 20px;}
+  .price-card li{padding:6px 0;border-bottom:1px dashed var(--line);}
+  form{display:grid;gap:14px;max-width:520px;}
+  input,select{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:8px;font-size:15px;}
+  .faq details{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin-bottom:12px;}
+  .faq summary{font-weight:700;cursor:pointer;}
+  .faq p{color:var(--muted);font-size:14px;margin-top:8px;}
+  footer{background:#0f172a;color:#94a3b8;padding:36px 6%;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+  @media(max-width:900px){.hero,.roi{grid-template-columns:1fr;}.grid,.steps,.price-grid{grid-template-columns:1fr 1fr;}.hero h1{font-size:32px;}}
+  @media(max-width:600px){.grid,.steps,.price-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <img src="assets/logo.png" alt="Stratum AI">
+  <div><a href="#how">How it works</a><a href="#roi">ROI</a><a href="#pricing">Pricing</a><a class="cta" href="#form">Book a demo</a></div>
+</nav>
+
+<header class="hero">
+  <div>
+    <div class="kicker">Stratum Realty · Real Estate</div>
+    <h1>Every lead answered in under 5 minutes — <span>even at 2am</span></h1>
+    <p>An AI lead pipeline for brokerages: qualifies every lead in seconds, alerts your agents for hot ones, books viewings on agent calendars, and never lets a lead go cold.</p>
+    <a class="cta" href="#form">See it on your data — free</a>
+  </div>
+  <img src="assets/hero-realestate.jpg" alt="Stratum Realty · Real Estate">
+</header>
+
+<div class="stats"><div class="stat"><b><5 min</b><span>response to hot leads, 24/7</span></div><div class="stat"><b>214</b><span>showings booked by AI in one month</span></div><div class="stat"><b>91%</b><span>of inbound handled with zero human touch</span></div><div class="stat"><b>10-14 days</b><span>to go-live</span></div></div>
+
+<section id="how">
+  <div class="kicker">What you get</div>
+  <h2>An AI teammate that never sleeps</h2>
+  <p class="sub">Deployed in 2-4 weeks. Works with your existing MLS/CRM stack. Every action approved and logged.</p>
+  <div class="grid"><div class="card"><h3>Instant qualification</h3><p>Every lead scored 0-100 in seconds with intent, budget and timeline.</p></div><div class="card"><h3>Hot-lead alerts</h3><p>Agents pinged in under 5 minutes with full context.</p></div><div class="card"><h3>Showing scheduler</h3><p>Viewings booked straight onto agent calendars — no phone tag.</p></div><div class="card"><h3>Property matching</h3><p>3-5 personalized listings from the MLS sent to every lead.</p></div><div class="card"><h3>Nurture sequences</h3><p>Warm leads get smart follow-ups; cold leads get drip campaigns.</p></div><div class="card"><h3>CRM hygiene</h3><p>Dedupes, syncs and keeps your pipeline clean automatically.</p></div></div>
+</section>
+
+<section style="background:var(--bg)">
+  <div class="kicker">How it works</div>
+  <h2>From sign to live in weeks</h2>
+  <div class="steps"><div class="step"><div class="n">1</div><h3>Connect</h3><p style="font-size:13px;color:var(--muted)">We plug into your CRM, MLS and agent calendars.</p></div><div class="step"><div class="n">2</div><h3>Calibrate</h3><p style="font-size:13px;color:var(--muted)">We score your last 100 leads to tune the model.</p></div><div class="step"><div class="n">3</div><h3>Shadow</h3><p style="font-size:13px;color:var(--muted)">AI works; agents approve every action for 48h.</p></div><div class="step"><div class="n">4</div><h3>Go live</h3><p style="font-size:13px;color:var(--muted)">Hot leads alert instantly. Viewings book themselves.</p></div></div>
+</section>
+
+<section id="roi">
+  <div class="roi">
+    <div>
+      <div class="kicker" style="color:#99f6e4">ROI</div>
+      <h2>What our stratum realty · real estate clients see</h2>
+      <p style="opacity:.85;font-size:15px;margin-bottom:14px">Measured on real client data, reported monthly.</p>
+    </div>
+    <ul><li><strong>486</strong> — leads scored by AI in one month</li><li><strong>52h</strong> — agent hours saved monthly</li><li><strong>$1.9M</strong> — est. commission value of AI-handled pipeline</li></ul>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="kicker">Pricing</div>
+  <h2>Simple, outcome-priced</h2>
+  <p class="sub">One-time implementation + flat monthly platform fee. No per-message surprises.</p>
+  <div class="price-grid"><div class="price-card">
+            <h3>Single office</h3><div class="amt">$4k + $1,500/mo</div>
+            <ul><li>Up to 10 agents</li><li>Lead qualification + alerts</li><li>Showing booking</li><li>Property matching</li><li>Nurture sequences</li></ul>
+            <a class="cta" href="#form">Start</a></div><div class="price-card featured">
+            <h3>Growth</h3><div class="amt">$6k + $2,500/mo</div>
+            <ul><li>Everything in Single office</li><li>Unlimited agents</li><li>CRM sync + dedupe</li><li>ZipForm prefill</li><li>Priority support</li></ul>
+            <a class="cta" href="#form">Most popular</a></div><div class="price-card">
+            <h3>Multi-office</h3><div class="amt">Custom</div>
+            <ul><li>Everything in Growth</li><li>Per-office dashboards</li><li>Team routing</li><li>Dedicated success manager</li></ul>
+            <a class="cta" href="#form">Talk to us</a></div></div>
+</section>
+
+<section class="faq">
+  <div class="kicker">FAQ</div>
+  <h2>Common questions</h2>
+  <details><summary>Does the AI actually talk to my buyers?</summary><p>Yes — by text and chat, in your brand voice. Voice is available as an add-on.</p></details><details><summary>Which MLS/CRM do you support?</summary><p>RESO Web API and IDX for MLS; Follow Up Boss, kvCORE, LionDesk and most REST CRMs.</p></details><details><summary>What if a hot lead calls at midnight?</summary><p>The AI qualifies, matches properties and books a showing — your agent picks up the thread in the morning.</p></details><details><summary>Can my agents override decisions?</summary><p>Always. Every AI action is visible in Slack; one click to take over.</p></details>
+</section>
+
+<section id="form" style="background:var(--bg)">
+  <div class="kicker">Get started</div>
+  <h2>Book a 15-minute demo</h2>
+  <p class="sub">Bring your real lead feed — we'll score your last 100 leads and show what you missed.</p>
+  <form action="#" method="post">
+    <input type="text" name="name" placeholder="Your name" required>
+    <input type="email" name="email" placeholder="Work email" required>
+    <input type="tel" name="phone" placeholder="Phone (optional)">
+    <input type="text" name="company" placeholder="Company">
+    <select name="vertical">
+      <option>Stratum Realty · Real Estate</option>
+      <option>Medical / Dental</option>
+      <option>Real Estate</option>
+      <option>Logistics / Freight</option>
+    </select>
+    <button class="cta" type="submit">Request demo →</button>
+  </form>
+</section>
+
+<footer>
+  <span>© 2026 Stratum AI · Privacy · Terms</span>
+  <span>hello@stratumai.com · +1 (555) 010-0000</span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,42 @@
+name: Deploy Staging
+
+on:
+  push:
+    branches: [develop]
+
+env:
+  AWS_REGION: us-east-1
+  EKS_CLUSTER: stratum-eks
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build & push images
+        run: |
+          IMG="${{ steps.ecr.outputs.registry }}/agent-core:${{ github.sha }}"
+          docker build -f DEPLOYMENT_INFRASTRUCTURE/docker/Dockerfile.agent-core -t "$IMG" .
+          docker push "$IMG"
+          IMG_W="${{ steps.ecr.outputs.registry }}/agent-worker:${{ github.sha }}"
+          docker build -f DEPLOYMENT_INFRASTRUCTURE/docker/Dockerfile.worker -t "$IMG_W" .
+          docker push "$IMG_W"
+
+      - name: Deploy to EKS
+        run: |
+          aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
+          kubectl set image deployment/agent-core agent-core=${{ steps.ecr.outputs.registry }}/agent-core:${{ github.sha }} -n stratum
+          kubectl set image deployment/agent-worker agent-worker=${{ steps.ecr.outputs.registry }}/agent-worker:${{ github.sha }} -n stratum
+          kubectl rollout status deployment/agent-core -n stratum --timeout=5m

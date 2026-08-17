@@ -1,0 +1,24 @@
+Subject: Your front desk is missing 1 in 3 calls — we fixed it for [Clinic]
+
+Hi [First Name],
+
+Most dental practices lose 30% of inbound calls to voicemail, and 40% of
+bookings happen after hours.
+
+We build AI front-desk agents for clinics. Yours would:
+
+  • Answer every call and text in under 30 seconds — 24/7
+  • Book, reschedule and confirm appointments directly in your calendar
+  • Collect insurance details before the visit
+  • Cut no-shows with automated 48h/24h reminders
+
+One practice we work with went from 21% to 9% no-shows in 60 days and
+recovered ~38 front-desk hours a month.
+
+Go-live takes about 2 weeks. Want a 15-minute demo this week?
+
+[Your Name]
+[Your Agency] — [link]
+
+P.S. We can replay your own past calls through the system so you can see
+exactly what it would have handled.

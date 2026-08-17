@@ -1,0 +1,54 @@
+name: inbound_lead
+version: 1.0.0
+vertical: real_estate_brokerages
+description: >
+  Every inbound lead (web form, SMS, phone, portal) enters here: capture,
+  dedupe, and route within 60 seconds — even when agents are busy.
+
+trigger:
+  channels: [web_form, sms, phone, zillow, realtor, facebook]
+  events: [lead_created]
+
+steps:
+  - id: capture_lead
+    agent: brokerage_orchestrator
+    action: capture
+    output: lead_record
+
+  - id: dedupe_and_merge
+    agent: crm_sync_agent
+    action: dedupe
+    input: { contacts: ["{lead_record}"] }
+
+  - id: qualify
+    agent: lead_qualifier_agent
+    action: run
+    input:
+      lead: "{lead_record}"
+      message: "{first_message}"
+      channel: "{channel}"
+    output: qualification
+
+  - id: route
+    agent: brokerage_orchestrator
+    action: route
+    input: { qualification: "{qualification}" }
+
+  - id: notify_agent
+    agent: brokerage_orchestrator
+    action: slack_alert
+    for_each: "{qualification.tier == 'hot'}"
+
+success_criteria:
+  - lead in CRM < 60s
+  - hot leads alerted to agent < 2 min
+  - no duplicate records created
+
+fallback:
+  - CRM down -> hold in queue, retry every 5 min, alert on-call after 3 tries
+  - qualification LLM fails -> default to warm nurture, flag for review
+
+metrics:
+  - time_to_first_response
+  - hot_lead_alert_latency
+  - lead_dedupe_rate

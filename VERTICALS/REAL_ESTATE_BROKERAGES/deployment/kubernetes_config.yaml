@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: brokerage-agent
+  namespace: stratum
+  labels:
+    app: brokerage-agent
+    vertical: real_estate_brokerages
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: brokerage-agent
+  template:
+    metadata:
+      labels:
+        app: brokerage-agent
+        vertical: real_estate_brokerages
+    spec:
+      containers:
+        - name: brokerage-agent
+          image: ${ECR_REGISTRY}/agent-core:${IMAGE_TAG}
+          env:
+            - name: VERTICAL
+              value: real_estate_brokerages
+          envFrom:
+            - configMapRef: { name: brokerage-config }
+            - secretRef: { name: brokerage-secrets }
+          resources:
+            requests: { cpu: 200m, memory: 384Mi }
+            limits: { cpu: "1", memory: 1Gi }
+          readinessProbe:
+            httpGet: { path: /healthz, port: 8000 }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: brokerage-config
+  namespace: stratum
+data:
+  client_id: "CHANGE_ME"
+  crm_provider: "follow_up_boss"   # follow_up_boss | kvcore | liondesk | generic
+  mls_provider: "resowebapi"
+  response_sla_minutes: "5"
+  sequence_enabled: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: brokerage-agent
+  namespace: stratum
+spec:
+  selector:
+    app: brokerage-agent
+  ports:
+    - port: 80
+      targetPort: 8000

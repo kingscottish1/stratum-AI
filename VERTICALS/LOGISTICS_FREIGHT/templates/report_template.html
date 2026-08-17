@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>{{report_title}}</title>
+<style>
+  body { font-family: Segoe UI, Arial, sans-serif; background: #fff; padding: 24px; color: #1f2937; }
+  h1 { color: #0f766e; font-size: 22px; } h2 { font-size: 16px; margin-top: 28px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  th { background: #f1f5f9; text-align: left; }
+  td, th { border-bottom: 1px solid #e5e7eb; padding: 8px 10px; font-size: 13px; }
+  .kpi { display: inline-block; background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px;
+         padding: 14px 18px; margin: 0 10px 10px 0; }
+  .kpi .v { font-size: 22px; font-weight: 700; color: #0f766e; }
+  .kpi .l { font-size: 11px; color: #6b7280; text-transform: uppercase; }
+  .foot { color: #9ca3af; font-size: 11px; margin-top: 30px; border-top: 1px solid #e5e7eb; padding-top: 10px; }
+</style></head>
+<body>
+  <h1>{{report_title}}</h1>
+  <p>Period: {{period}} · Generated: {{generated_at}} · {{client_name}}</p>
+
+  <div class="kpi"><div class="v">{{kpi_1_value}}</div><div class="l">{{kpi_1_label}}</div></div>
+  <div class="kpi"><div class="v">{{kpi_2_value}}</div><div class="l">{{kpi_2_label}}</div></div>
+  <div class="kpi"><div class="v">{{kpi_3_value}}</div><div class="l">{{kpi_3_label}}</div></div>
+
+  {{report_tables}}
+
+  <p class="foot">Generated automatically by the Stratum AI reporting agent. Questions? Reply to this email.</p>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Datadog agent config for clients that run the stratum stack in Datadog shops.
+# Alternative to Prometheus/Grafana. Install dd-agent with the following env:
+#   DD_API_KEY, DD_SITE=datadoghq.com
+
+logs_enabled: true
+
+process_config:
+  enabled: true
+
+# --- Custom metrics via the API endpoint --------------------------------------
+# The API exposes /v1/metrics; enable an integration for scraping:
+integrations:
+  - name: prometheus
+    init_config:
+      min_collection_interval: 15
+    instances:
+      - prometheus_url: http://api:8000/v1/metrics
+        namespace: stratum
+
+# --- Monitors (create via UI or terraform-datadog) -----------------------------
+monitors:
+  - name: "Stratum: Agent error rate"
+    type: "query alert"
+    query: "sum:stratum.agent_runs{status:error}.as_rate().rollup(sum, 300) / sum:stratum.agent_runs{*}.as_rate().rollup(sum, 300) > 0.05"
+    message: "Agent error rate above 5%. @on-call"

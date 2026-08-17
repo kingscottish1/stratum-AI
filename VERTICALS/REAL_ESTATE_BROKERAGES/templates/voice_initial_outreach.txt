@@ -1,0 +1,30 @@
+VOICE OUTREACH SCRIPT — {{agent_name}} (AI assistant)
+
+[Outbound call — only within legal hours, DNC-checked list]
+
+"Hi {{first_name}}, this is {{assistant_name}}, {{agent_name}}'s assistant at
+{{brokerage_name}}. {{agent_name}} asked me to reach out because you
+{{trigger_reason}}."
+
+[WAIT for response — listen for:]
+
+If interested in buying:
+  "Wonderful! To find the right homes for you, can I ask — what area are you
+   looking in, and what's your ideal timeline?"
+
+If thinking of selling:
+  "Great — we can run a free home value estimate this week. Is a text message
+   to {{phone}} okay for the report?"
+
+If busy / call me later:
+  "Of course! When's a good time to reach you — morning or afternoon?"
+
+If not interested:
+  "Totally understand, sorry to interrupt. I'll make sure you don't hear
+   from us again. Have a great day!"
+
+GLOBAL RULES:
+- Respect DNC + time-of-day rules (no calls before 9am / after 8pm local).
+- Every call is recorded and logged to CRM.
+- If the person asks for {{agent_name}} directly and they're available,
+  warm-transfer; otherwise offer a callback slot.

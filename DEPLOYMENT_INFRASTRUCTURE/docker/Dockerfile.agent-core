@@ -1,0 +1,26 @@
+# Agent core runtime — base image for all vertical agents.
+FROM python:3.11-slim AS base
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+# System deps: tesseract for OCR, poppler for PDF rendering
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        tesseract-ocr \
+        poppler-utils \
+        curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY requirements.txt ./requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copy the whole monorepo (build context = repo root)
+COPY . .
+
+RUN python -m compileall -q CORE_AGENT_INFRASTRUCTURE VERTICALS || true
+
+EXPOSE 8000
+CMD ["uvicorn", "CORE_AGENT_INFRASTRUCTURE.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

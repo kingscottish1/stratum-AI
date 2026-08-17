@@ -1,0 +1,39 @@
+groups:
+  - name: stratum-platform
+    rules:
+      - alert: AgentErrorRateHigh
+        expr: |
+          sum(rate(stratum_agent_runs_total{status="error"}[5m]))
+          / sum(rate(stratum_agent_runs_total[5m])) > 0.05
+        for: 10m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Agent error rate above 5% for 10 minutes"
+          description: "Error rate is {{ $value | humanizePercentage }}"
+
+      - alert: AgentLatencyHigh
+        expr: |
+          histogram_quantile(0.95, rate(stratum_agent_duration_seconds_bucket[5m])) > 20
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "P95 agent latency above 20s"
+
+      - alert: WebhookQueueBacklog
+        expr: redis_queue_depth{queue="webhooks"} > 1000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Webhook queue backlog above 1000"
+
+      - alert: InstanceDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} is down"

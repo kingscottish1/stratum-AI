@@ -1,0 +1,5 @@
+# Interactive demo
+https://demo.stratumai.com
+
+Test number: +1-555-010-0000 (Twilio sandbox)
+Try: "Book a cleaning this week", "What are your hours?", "Cancel my appointment"

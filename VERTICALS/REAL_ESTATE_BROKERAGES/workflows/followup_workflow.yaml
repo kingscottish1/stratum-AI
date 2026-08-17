@@ -1,0 +1,45 @@
+name: follow_up_sequences
+version: 1.0.0
+vertical: real_estate_brokerages
+description: >
+  Multi-step nurture sequences that keep every lead warm without agent effort.
+
+trigger:
+  events: [scheduled_cron, lead_state_change]
+
+sequences:
+  hot_lead:
+    - offset: 0m
+      step: "Thank you + what to expect (SMS)"
+    - offset: 60m
+      step: "Matches or agent intro (SMS)"
+    - offset: 24h
+      step: "Question to qualify further (SMS)"
+  viewed_3d:
+    - offset: 3d
+      step: "How was the viewing? (SMS)"
+    - offset: 5d
+      step: "Comparables for that property (email)"
+    - offset: 10d
+      step: "New similar listings (email)"
+  offer_nudge:
+    - offset: 0m
+      step: "Offer received alert (agent)"
+    - offset: 24h
+      step: "Check in with client (SMS)"
+  market_snapshot:
+    - offset: 1mo
+      step: "Monthly market update (email)"
+
+success_criteria:
+  - reply rate > 35% on step 1 of sequences
+  - 60% of warm leads convert to a conversation within 14 days
+
+fallback:
+  - unsubscribed -> stop immediately, update CRM
+  - 2 no-replies -> move to lower cadence, flag agent
+
+metrics:
+  - sequence_reply_rate
+  - warm_to_conversation_rate
+  - unsubscribe_rate
